@@ -6,6 +6,7 @@ import SavingsPopup from'./components/savingsPopup';
 import TaxesAndShit from'./components/taxesAndShit';
 import Total from "./components/total";
 import Details from './components/details';
+import Discount from "./components/discountCode";
 
 class App extends Component {
 
@@ -13,8 +14,21 @@ class App extends Component {
         price: 100,
         savings: 4.00,
         taxes: 0,
-        amountToPay: 0
+        amountToPay: 0,
+
+        disableDiscountButton: false,
+
     };
+
+    componentDidMount() {
+        this.setState({
+            taxes: 1.10*(this.state.price)
+        },
+            () => {
+            this.setState({ amountToPay:  });
+            }
+            );
+    }
 
     render() {
         return (
@@ -30,11 +44,15 @@ class App extends Component {
                             <Total amountToPay={ this.state.amountToPay.toFixed(2) } />
                             <Details price={ this.state.amountToPay.toFixed(2) } /> <br />
                             <hr />
+                            <Discount
+                                grantDiscount={ () => this.grantDiscount() }
+                                discountCode={  }
+                                disabled={ this.state.disableDiscountButton }
+                            />
                         </div>
 
                     </div>
                 </div>
-
 
             </div>
         );
