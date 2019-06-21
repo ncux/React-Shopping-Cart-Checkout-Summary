@@ -11,24 +11,28 @@ import Discount from "./components/discountCode";
 class App extends Component {
 
     state = {
-        price: 100,
+        price: 110,
         savings: 4.00,
         taxes: 0,
         amountToPay: 0,
 
         disableDiscountButton: false,
+        discountCode: ''
 
     };
 
     componentDidMount() {
-        this.setState({
-            taxes: 1.10*(this.state.price)
-        },
-            () => {
-            this.setState({ amountToPay:  });
-            }
+        this.setState({ taxes: 1.10 },
+            async () => {
+            await this.setState({ amountToPay: this.state.taxes * (this.state.price - this.state.savings)});
+            console.log(`Final amount to pay: $ ${this.state.amountToPay}`);
+        }
             );
     }
+
+    grantDiscount = () => {
+
+    };
 
     render() {
         return (
@@ -46,7 +50,7 @@ class App extends Component {
                             <hr />
                             <Discount
                                 grantDiscount={ () => this.grantDiscount() }
-                                discountCode={  }
+                                discountCode={ this.state.discountCode }
                                 disabled={ this.state.disableDiscountButton }
                             />
                         </div>

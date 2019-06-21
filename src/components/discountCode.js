@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import handleChange from '.././actions/discountCodeActions';
 
-class Discount extends Component {
+class DiscountCode extends Component {
 
     state = {
       open: false,
@@ -17,7 +19,7 @@ class Discount extends Component {
 
     onFormSubmit = e => {
         e.preventDefault();
-        this.props.grantDiscount;
+        this.props.grantDiscount();
 
         this.setState({ [e.target.name]: '' });
     };
@@ -55,4 +57,8 @@ class Discount extends Component {
     }
 }
 
-export default Discount;
+const mapStateToProps = state => ({
+    discountCode: state.discountCode.value,
+});
+
+export default connect(mapStateToProps, { handleChange })(DiscountCode);
